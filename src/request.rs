@@ -3,7 +3,7 @@ use crate::Response;
 use async_std::io::BufRead;
 use futures::future::BoxFuture;
 use http_client::{self, HttpClient};
-use http_types::headers::{HeaderName, HeaderValue, CONTENT_TYPE};
+use http_types::headers::{HeaderName, HeaderValue, HeaderValues, CONTENT_TYPE};
 use http_types::{Body, Error, Method};
 use mime::Mime;
 use serde::Serialize;
@@ -614,7 +614,7 @@ impl<C: HttpClient> fmt::Debug for Request<C> {
 
 #[cfg(any(feature = "native-client", feature = "h1-client"))]
 impl IntoIterator for Request<Client> {
-    type Item = (HeaderName, Vec<HeaderValue>);
+    type Item = (HeaderName, HeaderValues);
     type IntoIter = http_types::headers::IntoIter;
 
     /// Returns a iterator of references over the remaining items.
@@ -626,7 +626,7 @@ impl IntoIterator for Request<Client> {
 
 #[cfg(any(feature = "native-client", feature = "h1-client"))]
 impl<'a> IntoIterator for &'a Request<Client> {
-    type Item = (&'a HeaderName, &'a Vec<HeaderValue>);
+    type Item = (&'a HeaderName, &'a HeaderValues);
     type IntoIter = http_types::headers::Iter<'a>;
 
     #[inline]
@@ -637,7 +637,7 @@ impl<'a> IntoIterator for &'a Request<Client> {
 
 #[cfg(any(feature = "native-client", feature = "h1-client"))]
 impl<'a> IntoIterator for &'a mut Request<Client> {
-    type Item = (&'a HeaderName, &'a mut Vec<HeaderValue>);
+    type Item = (&'a HeaderName, &'a mut HeaderValues);
     type IntoIter = http_types::headers::IterMut<'a>;
 
     #[inline]
