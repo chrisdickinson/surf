@@ -3,7 +3,7 @@ use futures::io::AsyncReadExt;
 use futures::prelude::*;
 use http_client;
 use http_types::{
-    headers::{HeaderName, HeaderValue, Names, CONTENT_TYPE},
+    headers::{HeaderName, HeaderValue, HeaderValues, Names, CONTENT_TYPE},
     Error, StatusCode, Version,
 };
 use mime::Mime;
@@ -71,7 +71,7 @@ impl Response {
     /// assert!(res.header(&"Content-Length".parse().unwrap()).is_some());
     /// # Ok(()) }
     /// ```
-    pub fn header(&self, key: &HeaderName) -> Option<&'_ Vec<HeaderValue>> {
+    pub fn header(&self, key: &HeaderName) -> Option<&'_ HeaderValues> {
         self.response.header(key)
     }
 

@@ -181,7 +181,7 @@ impl<C: HttpClient> Request<C> {
     /// assert_eq!(req.header(&"X-Requested-With".parse().unwrap()), Some(&vec!["surf".parse().unwrap()]));
     /// # Ok(()) }
     /// ```
-    pub fn header(&self, key: &HeaderName) -> Option<&'_ Vec<HeaderValue>> {
+    pub fn header(&self, key: &HeaderName) -> Option<&'_ HeaderValues> {
         let req = self.req.as_ref().unwrap();
         req.header(key)
     }
